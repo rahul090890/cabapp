@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.5/angular.min.js"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+
+        <!-- Latest compiled and minified JavaScript -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <script>
+            var app = angular.module('myApp', []);
+            app.controller('myCtrl', function ($scope, $http, $filter) {
+                
+                    $scope.timeSheetDetails = {
+    "@id": 1,
+    "employeeId": "2",
+    "employeeDesignation": "Engineering",
+    "managerId": "50",
+    "managerName": "Guru-Prakash",
+    "managerEmailId": "guru.p@phoenixetech.com",
+    "startDateOfWeek": "2017-09-04",
+    "endDateOfWeek": "2017-09-10",
+    "timesheets": {
+        "557": [
+            {
+                "@id": 2,
+                "customerId": "2",
+                "customerName": "ZGUS GALLEY USA",
+                "customerProgramId": "1",
+                "customerProgramCode": "Engineering",
+                "customerProgramType": "Captive",
+                "departmentId": "58",
+                "projectId": "54804",
+                "projectName": "CERT MF2 JXB (1B001) G4B G1002-01",
+                "projectType": "BILLABLE",
+                "taskId": "569",
+                "taskName": "Hardware Support",
+                "hours": 8,
+                "timesheetDate": "04-09-2017"
+            },
+            {
+                "@id": 3,
+                "customerId": "2",
+                "customerName": "ZGUS GALLEY USA",
+                "customerProgramId": "1",
+                "customerProgramCode": "Engineering",
+                "customerProgramType": "Captive",
+                "departmentId": "58",
+                "projectId": "54804",
+                "projectName": "CERT MF2 JXB (1B001) G4B G1002-01",
+                "projectType": "BILLABLE",
+                "taskId": "569",
+                "taskName": "Hardware Support",
+                "hours": 8,
+                "timesheetDate": "05-09-2017"
+            },
+            {
+                "@id": 4,
+                "customerId": "2",
+                "customerName": "ZGUS GALLEY USA",
+                "customerProgramId": "1",
+                "customerProgramCode": "Engineering",
+                "customerProgramType": "Captive",
+                "departmentId": "58",
+                "projectId": "54804",
+                "projectName": "CERT MF2 JXB (1B001) G4B G1002-01",
+                "projectType": "BILLABLE",
+                "taskId": "569",
+                "taskName": "Hardware Support",
+                "hours": 8,
+                "timesheetDate": "06-09-2017"
+            },
+            {
+                "@id": 5,
+                "customerId": "2",
+                "customerName": "ZGUS GALLEY USA",
+                "customerProgramId": "1",
+                "customerProgramCode": "Engineering",
+                "customerProgramType": "Captive",
+                "departmentId": "58",
+                "projectId": "54804",
+                "projectName": "CERT MF2 JXB (1B001) G4B G1002-01",
+                "projectType": "BILLABLE",
+                "taskId": "569",
+                "taskName": "Hardware Support",
+                "hours": 8,
+                "timesheetDate": "07-09-2017"
+            },
+            {
+                "@id": 6,
+                "customerId": "2",
+                "customerName": "ZGUS GALLEY USA",
+                "customerProgramId": "1",
+                "customerProgramCode": "Engineering",
+                "customerProgramType": "Captive",
+                "departmentId": "58",
+                "projectId": "54804",
+                "projectName": "CERT MF2 JXB (1B001) G4B G1002-01",
+                "projectType": "BILLABLE",
+                "taskId": "569",
+                "taskName": "Hardware Support",
+                "hours": 8,
+                "timesheetDate": "08-09-2017"
+            }
+        ],"560": [
+            {
+                "@id": 2,
+                "customerId": "2",
+                "customerName": "ZGUS GALLEY USA",
+                "customerProgramId": "1",
+                "customerProgramCode": "Engineering",
+                "customerProgramType": "Captive",
+                "departmentId": "58",
+                "projectId": "54804",
+                "projectName": "CERT MF2 JXB (1B001) G4B G1002-01",
+                "projectType": "BILLABLE",
+                "taskId": "560",
+                "taskName": "Hardware Support",
+                "hours": 8,
+                "timesheetDate": "04-09-2017"
+            },
+            {
+                "@id": 3,
+                "customerId": "2",
+                "customerName": "ZGUS GALLEY USA",
+                "customerProgramId": "1",
+                "customerProgramCode": "Engineering",
+                "customerProgramType": "Captive",
+                "departmentId": "58",
+                "projectId": "54804",
+                "projectName": "CERT MF2 JXB (1B001) G4B G1002-01",
+                "projectType": "BILLABLE",
+                "taskId": "560",
+                "taskName": "Hardware Support",
+                "hours": 8,
+                "timesheetDate": "05-09-2017"
+            },
+            {
+                "@id": 5,
+                "customerId": "2",
+                "customerName": "ZGUS GALLEY USA",
+                "customerProgramId": "1",
+                "customerProgramCode": "Engineering",
+                "customerProgramType": "Captive",
+                "departmentId": "58",
+                "projectId": "54804",
+                "projectName": "CERT MF2 JXB (1B001) G4B G1002-01",
+                "projectType": "BILLABLE",
+                "taskId": "560",
+                "taskName": "Hardware Support",
+                "hours": 8,
+                "timesheetDate": "07-09-2017"
+            },
+            {
+                "@id": 6,
+                "customerId": "2",
+                "customerName": "ZGUS GALLEY USA",
+                "customerProgramId": "1",
+                "customerProgramCode": "Engineering",
+                "customerProgramType": "Captive",
+                "departmentId": "58",
+                "projectId": "54804",
+                "projectName": "CERT MF2 JXB (1B001) G4B G1002-01",
+                "projectType": "BILLABLE",
+                "taskId": "560",
+                "taskName": "Hardware Support",
+                "hours": 8,
+                "timesheetDate": "08-09-2017"
+            }
+        ]
+    },
+    "comments": "submitting first"
+};
+                    $scope.weekDays = [];
+                    $scope.tasks = [];
+                    if ($scope.timeSheetDetails && $scope.timeSheetDetails.startDateOfWeek && $scope.timeSheetDetails.endDateOfWeek) {
+                        var weekStart = new Date($scope.timeSheetDetails.startDateOfWeek);
+                        var weekEnd = new Date($scope.timeSheetDetails.endDateOfWeek);
+
+                        for (var i = weekStart.getDate('dd'); i <= weekEnd.getDate('dd'); i++) {
+                            $scope.weekDays.push((i < 10 ? '0'+i : i) + '-' + ((weekStart.getMonth()+1) < 10 ? '0'+(weekStart.getMonth()+1) : weekStart.getMonth()+1) + '-' + weekStart.getFullYear());
+                        }
+
+                        $.each($scope.timeSheetDetails.timesheets, function (index, value) {
+                                var taskObj = {
+                                    "dates":{},
+                                    'totalHours':0
+                                };
+                                
+                            $.each($scope.weekDays, function (dateIndex,dateValue) { 
+                                var taskDetails = $filter('filter')(value, {'timesheetDate': dateValue}, true);
+                                if(taskDetails.length > 0 && (taskObj.taskId == undefined || taskObj.taskId == null || taskObj.taskId == '')){
+                                    taskObj['customerId'] = taskDetails[0].customerId;
+                                    taskObj['customerName'] = taskDetails[0].customerName;
+                                    taskObj['customerProgramId'] = taskDetails[0].customerProgramId;
+                                    taskObj['customerProgramCode'] = taskDetails[0].customerProgramCode;
+                                    taskObj['customerProgramType'] = taskDetails[0].customerProgramType;
+                                    taskObj['departmentId'] = taskDetails[0].departmentId;
+                                    taskObj['projectId'] = taskDetails[0].projectId;
+                                    taskObj['projectName'] = taskDetails[0].projectName;
+                                    taskObj['projectType'] = taskDetails[0].projectType;
+                                    taskObj['taskId'] = taskDetails[0].taskId;
+                                    taskObj['taskName'] = taskDetails[0].taskName;
+                                }
+                                
+                                taskObj.totalHours = parseInt(taskObj.totalHours) + (taskDetails[0] ? parseInt(taskDetails[0].hours) : 0);
+                                taskObj.dates[dateValue] = taskDetails[0] ? taskDetails[0].hours : '';
+                            });
+                            
+                            $scope.tasks.push(taskObj);
+                            console.log($scope.tasks);                        
+                            
+                        });
+                    }
+
+                  
+            });
+        </script>
+    </head>
+    <body ng-app="myApp">
+        <div class="container-fluid" ng-controller="myCtrl">
+            <table class="table table-hover">
+                <thead>
+                    <tr class="bg-info">
+                        <th>Employee ID</th>
+                        <th>Start Date</th>
+                        <th>End Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th>{{timeSheetDetails.employeeId}}</th>
+                        <th>{{timeSheetDetails.startDateOfWeek| date:'dd-MM-yyyy'}}</th>
+                        <th>{{timeSheetDetails.endDateOfWeek| date:'dd-MM-yyyy'}}</th>
+                    </tr>
+                </tbody>
+            </table>
+            <table class="table table-hover table-striped">
+                <thead>
+                    <tr class="bg-info">
+                        <th>Task ID</th>
+                        <th>Project Name</th>
+                        <th>Project Type</th>
+                        <th ng-repeat="item in weekDays">{{item}}</th>
+                        <th>Total Hours</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="task in tasks">
+                        <th>{{task.taskId}}</th>
+                        <th>{{task.projectName}}</th>
+                        <th>{{task.projectType}}</th>
+                        <th ng-repeat="date in task.dates">{{date}}</th>
+                        <th>{{task.totalHours}}</th>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </body>
+</html>
