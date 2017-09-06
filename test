@@ -15,11 +15,11 @@ and open the template in the editor.
 
         <!-- Latest compiled and minified JavaScript -->
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-        <script>
-            var app = angular.module('myApp', []);
-            app.controller('myCtrl', function ($scope, $http, $filter) {
-                
-                    $scope.timeSheetDetails = {
+     <script>
+	 var app = angular.module('myApp', []);
+app.controller('myCtrl', function ($scope, $http, $filter) {
+    
+        $scope.timeSheetDetails = {
     "@id": 1,
     "employeeId": "2",
     "employeeDesignation": "Engineering",
@@ -179,54 +179,71 @@ and open the template in the editor.
     },
     "comments": "submitting first"
 };
-                    $scope.weekDays = [];
-                    $scope.tasks = [];
-                    if ($scope.timeSheetDetails && $scope.timeSheetDetails.startDateOfWeek && $scope.timeSheetDetails.endDateOfWeek) {
-                        var weekStart = new Date($scope.timeSheetDetails.startDateOfWeek);
-                        var weekEnd = new Date($scope.timeSheetDetails.endDateOfWeek);
+        $scope.weekDays = {};
+        $scope.tasks = [];
+        $scope.weekDaysHR = {
+            "dates": {},
+            'totalHours': 0
+        };
+        $scope.dayName = ['Sun','Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+        if ($scope.timeSheetDetails && $scope.timeSheetDetails.startDateOfWeek && $scope.timeSheetDetails.endDateOfWeek) {
+            var weekStart = new Date($scope.timeSheetDetails.startDateOfWeek);
+            var weekEnd = new Date($scope.timeSheetDetails.endDateOfWeek);
+            var startDate = new Date($scope.timeSheetDetails.startDateOfWeek); 
+            var count = 0;
+            
+            for (var i = weekStart.getDate('dd'); i <= weekEnd.getDate('dd'); i++) {
+                $scope.weekDays[(i < 10 ? '0' + i : i) + '-' + ((weekStart.getMonth() + 1) < 10 ? '0' + (weekStart.getMonth() + 1) : weekStart.getMonth() + 1) + '-' + weekStart.getFullYear()] = {
+                    date:(i < 10 ? '0' + i : i),
+                    day:$scope.dayName[new Date(startDate.setDate(weekStart.getDate()+count)).getDay()]
+                };
+                
+                count++;
+            }
 
-                        for (var i = weekStart.getDate('dd'); i <= weekEnd.getDate('dd'); i++) {
-                            $scope.weekDays.push((i < 10 ? '0'+i : i) + '-' + ((weekStart.getMonth()+1) < 10 ? '0'+(weekStart.getMonth()+1) : weekStart.getMonth()+1) + '-' + weekStart.getFullYear());
-                        }
+            $.each($scope.timeSheetDetails.timesheets, function (index, value) {
+                var taskObj = {
+                    "dates": {},
+                    'totalHours': 0
+                };
+                $.each($scope.weekDays, function (dateIndex, dateValue) {
+                    var taskDetails = $filter('filter')(value, {'timesheetDate': dateIndex}, true);
 
-                        $.each($scope.timeSheetDetails.timesheets, function (index, value) {
-                                var taskObj = {
-                                    "dates":{},
-                                    'totalHours':0
-                                };
-                                
-                            $.each($scope.weekDays, function (dateIndex,dateValue) { 
-                                var taskDetails = $filter('filter')(value, {'timesheetDate': dateValue}, true);
-                                if(taskDetails.length > 0 && (taskObj.taskId == undefined || taskObj.taskId == null || taskObj.taskId == '')){
-                                    taskObj['customerId'] = taskDetails[0].customerId;
-                                    taskObj['customerName'] = taskDetails[0].customerName;
-                                    taskObj['customerProgramId'] = taskDetails[0].customerProgramId;
-                                    taskObj['customerProgramCode'] = taskDetails[0].customerProgramCode;
-                                    taskObj['customerProgramType'] = taskDetails[0].customerProgramType;
-                                    taskObj['departmentId'] = taskDetails[0].departmentId;
-                                    taskObj['projectId'] = taskDetails[0].projectId;
-                                    taskObj['projectName'] = taskDetails[0].projectName;
-                                    taskObj['projectType'] = taskDetails[0].projectType;
-                                    taskObj['taskId'] = taskDetails[0].taskId;
-                                    taskObj['taskName'] = taskDetails[0].taskName;
-                                }
-                                
-                                taskObj.totalHours = parseInt(taskObj.totalHours) + (taskDetails[0] ? parseInt(taskDetails[0].hours) : 0);
-                                taskObj.dates[dateValue] = taskDetails[0] ? taskDetails[0].hours : '';
-                            });
-                            
-                            $scope.tasks.push(taskObj);
-                            console.log($scope.tasks);                        
-                            
-                        });
+                    if (taskDetails.length > 0 && (taskObj.taskId == undefined || taskObj.taskId == null || taskObj.taskId == '')) {
+                        taskObj['customerId'] = taskDetails[0].customerId;
+                        taskObj['customerName'] = taskDetails[0].customerName;
+                        taskObj['customerProgramId'] = taskDetails[0].customerProgramId;
+                        taskObj['customerProgramCode'] = taskDetails[0].customerProgramCode;
+                        taskObj['customerProgramType'] = taskDetails[0].customerProgramType;
+                        taskObj['departmentId'] = taskDetails[0].departmentId;
+                        taskObj['projectId'] = taskDetails[0].projectId;
+                        taskObj['projectName'] = taskDetails[0].projectName;
+                        taskObj['projectType'] = taskDetails[0].projectType;
+                        taskObj['taskId'] = taskDetails[0].taskId;
+                        taskObj['taskName'] = taskDetails[0].taskName;
                     }
 
-                  
+                    taskObj.totalHours = parseInt(taskObj.totalHours) + (taskDetails[0] ? parseInt(taskDetails[0].hours) : 0);
+                    taskObj.dates[dateIndex] = taskDetails[0] ? taskDetails[0].hours : '';
+                    $scope.weekDaysHR.dates[dateIndex] = ($scope.weekDaysHR.dates[dateIndex] == undefined || 
+                            $scope.weekDaysHR.dates[dateIndex] == '' || $scope.weekDaysHR.dates[dateIndex] == null 
+                    ? 0 : parseInt($scope.weekDaysHR.dates[dateIndex])) + (taskObj.dates[dateIndex] == undefined ||
+                            taskObj.dates[dateIndex] == '' || taskObj.dates[dateIndex] == null ? 0 : parseInt(taskObj.dates[dateIndex]));
+                });
+                $scope.weekDaysHR.totalHours = parseInt($scope.weekDaysHR.totalHours) + parseInt(taskObj.totalHours);
+                $scope.tasks.push(taskObj);
+                //console.log($scope.weekDaysHR);
             });
-        </script>
+        }
+
+        //console.log(weekStart, weekEnd, $scope.weekDays);
+ 
+});
+	 
+	 </script>
     </head>
     <body ng-app="myApp">
-        <div class="container-fluid" ng-controller="myCtrl">
+        <div class="container" ng-controller="myCtrl">
             <table class="table table-hover">
                 <thead>
                     <tr class="bg-info">
@@ -249,19 +266,26 @@ and open the template in the editor.
                         <th>Task ID</th>
                         <th>Project Name</th>
                         <th>Project Type</th>
-                        <th ng-repeat="item in weekDays">{{item}}</th>
-                        <th>Total Hours</th>
+                        <th class="text-center" ng-repeat="item in weekDays">{{item.day}}<br/>{{item.date}}</th>
+                        <th class="text-center">Total Hours</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr ng-repeat="task in tasks">
-                        <th>{{task.taskId}}</th>
-                        <th>{{task.projectName}}</th>
-                        <th>{{task.projectType}}</th>
-                        <th ng-repeat="date in task.dates">{{date}}</th>
-                        <th>{{task.totalHours}}</th>
+                        <td>{{task.taskId}}</td>
+                        <td>{{task.projectName}}</td>
+                        <td>{{task.projectType}}</td>
+                        <td class="text-center" ng-repeat="dayHR in task.dates">{{dayHR?dayHR:0}}</td>
+                        <td class="text-center">{{task.totalHours}}</td>
                     </tr>
                 </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="3"></td>
+                        <td class="text-center" ng-repeat="item in weekDaysHR.dates">{{item}}</td>
+                        <td class="text-center">{{weekDaysHR.totalHours}}</td>
+                    </tr>
+                </tfoot>
             </table>
         </div>
     </body>
